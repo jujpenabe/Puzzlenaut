@@ -22,4 +22,15 @@ public class MenuManager : MonoBehaviour
     {
         menuPanel.SetActive(newState == GameState.Menu);
     }
+    
+    public void StartGame()
+    {
+        GameManager.Instance.UpdateGameState(GameState.Playing);
+    }
+    
+    public void QuitGame()
+    {
+        Debug.Log("Quit Game");
+        Application.Quit();
+    }
 }

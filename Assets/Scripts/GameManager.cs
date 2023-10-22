@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
             case GameState.Menu:
                 break;
             case GameState.Playing:
+                HandlePlayingState();
                 break;
             case GameState.Paused:
                 break;
@@ -46,7 +47,12 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged?.Invoke(State);
         
     }
-    
+
+    private void HandlePlayingState()
+    {
+
+    }
+
 }
 
 public enum GameState
