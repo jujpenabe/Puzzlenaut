@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Planets")] public GameObject[] planets;
+    public float gravityFactor=0.5f;
+    
     [Header("Movement")] public float moveSpeed;
 
     public float groundDrag;
 
-    public float jumpForce;
+    public float jumpForce= 5f;
     public float jumpCooldown;
     public float airMultiplier;
-    private bool readyToJump;
+    private bool readyToJump = true;
     
     [Header("Key binds")]
     public KeyCode jumpKey = KeyCode.Space;
@@ -32,15 +35,24 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
-        
+        //rb.freezeRotation = true;
     }
     
     private void Update()
     {
-        // ground check
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.25f, whatIsGround);
+        // Direction
+        Vector3 normalDirection = planets[0].transform.position - transform.position;
+        // Update gravity with first planet
+        Physics.gravity = normalDirection * gravityFactor;
         
+        // Rotate with gravity direction
+        Quaternion targetRotation = Quaternion.FromToRotation(transform.up, -Physics.gravity) * transform.rotation;
+        transform.rotation = targetRotation;
+        // Rotate each child object to keep them upright
+        
+        // ground check with direction to the center of the planet.
+        //
+        grounded = Physics.Raycast(transform.position, normalDirection, playerHeight * 0.5f + 0.25f, whatIsGround);
         if (grounded)
         {
             rb.drag = groundDrag;
@@ -52,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
         
         MyInput();
         SpeedControl();
+        
     }
     
     private void FixedUpdate()
@@ -79,7 +92,6 @@ public class PlayerMovement : MonoBehaviour
         //calculate movement direction
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         
-        
         // on ground
         if(grounded)
         {
@@ -92,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SpeedControl()
     {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        Vector3 flatVel = new Vector3(0f, 0f, 0f);
         
         // limit velocity if needed
         if (flatVel.magnitude > moveSpeed)
@@ -104,10 +116,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
+        Debug.Log("Jumping");
         // reset y velocity
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        // calculate normal direction taking the position of the planet minus the player
+        Vector3 normalDirection = (transform.position - planets[0].transform.position).normalized;
+        rb.AddForce(normalDirection * jumpForce, ForceMode.Impulse);
     }
     
     private void ResetJump()
