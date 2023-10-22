@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo>
+	<Project Name="PuzzleNaut" GUID="{778BDE65-DECA-408D-8319-9A09D60B3BAC}" Generator="2022.1.5.8242"/>
+	<CacheRoot>../../../../../../Wwise Projects/PuzzleNaut/.cache</CacheRoot>
+	<Platforms>
+		<Platform Name="Windows" GUID="{7F2C27DF-7E74-49C0-962E-EB75B56F1736}" BasePlatform="Windows" BasePlatformGUID="{6E0CB257-C6C8-4C5C-8366-2740DFC441EB}" Path="../../../../../../Wwise Projects/PuzzleNaut/GeneratedSoundBanks/Windows"/>
+	</Platforms>
+	<Languages>
+		<Language Name="English(US)" Id="684519430" GUID="{0172C509-685A-4FE5-9BEF-1FF9F81F0667}" Default="true" UseAsStandIn="true"/>
+	</Languages>
+	<FileHash>{37B316A8-B882-53E1-7F91-355FD5F2D4E7}</FileHash>
+</ProjectInfo>
