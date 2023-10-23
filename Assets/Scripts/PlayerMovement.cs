@@ -117,8 +117,6 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         Debug.Log("Jumping");
-        // reset y velocity
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         
         // calculate normal direction taking the position of the planet minus the player
         Vector3 normalDirection = (transform.position - planets[0].transform.position).normalized;
