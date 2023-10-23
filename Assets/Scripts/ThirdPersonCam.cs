@@ -29,10 +29,6 @@ public class ThirdPersonCam : MonoBehaviour
         //flat viewdir cextor with perpedincular of player up vector
         Vector3 flatViewDir = Vector3.ProjectOnPlane(viewDir, playerObj.up);
         orientation.rotation = Quaternion.LookRotation(flatViewDir.normalized, playerObj.up);
-        // Show the angle in the inspector and a ray   
-        Debug.DrawRay(player.position, flatViewDir, Color.red);
-        Debug.Log(Vector3.Angle(playerObj.up, flatViewDir)); 
-        Debug.Log(Vector3.Angle(playerObj.up, viewDir));
         
         // slerp rotate the playerObj to the same angle as the orientation
         playerObj.rotation = Quaternion.Slerp(playerObj.rotation, orientation.rotation, Time.deltaTime * rotationSpeed);
